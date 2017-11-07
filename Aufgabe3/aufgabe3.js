@@ -10,14 +10,18 @@ var L3_Animation;
 (function (L3_Animation) {
     window.addEventListener("load", init);
     let crc2;
+    let imgData;
+    let x = [];
+    let y = [];
+    let r = Math.random() * 10;
     function init(_event) {
         let canvas;
         canvas = document.getElementsByTagName("canvas")[0];
         crc2 = canvas.getContext("2d");
-        drawMountain1(0, 0, "#E0FFFF");
-        drawPiste(950, 0, "#F0FFFF");
+        drawMountain1(0, 0, "#EEEEE0");
+        drawPiste(950, 0, "#E0FFFF");
         drawBackground(790, -200, "#B0C4DE");
-        drawMountain2(700, 0, "#E0FFFF");
+        drawMountain2(700, 0, "#EEEEE0");
         drawSun(550, 100, 30, "#FFEC8B");
         drawLift1(100, 0, "#1F1F1F");
         drawLift2(200, 300, "#1F1F1F");
@@ -33,6 +37,27 @@ var L3_Animation;
             let y = 300 + Math.random() * 270;
             drawBaum(x, y, "#458B00");
         }
+        imgData = crc2.getImageData(0, 0, 800, 600);
+        for (var i = 0; i < 200; i++) {
+            x[i] = Math.random() * 800;
+            y[i] = Math.random() * 600;
+        }
+        window.setTimeout(animate, 20);
+    }
+    function animate() {
+        crc2.putImageData(imgData, 0, 0);
+        for (var i = 0; i < 100; i++) {
+            x[i] += Math.random();
+            y[i] += Math.random() * 5;
+            if (y[i] > 600) {
+                y[i] = 0;
+            }
+            if (x[i] > 800) {
+                x[i] = 0;
+            }
+            drawSnowflakes(x[i], y[i], "#F8F8FF", r);
+        }
+        window.setTimeout(animate, 20);
     }
     function drawBackground(_x, _y, _fillColor) {
         crc2.beginPath();
@@ -204,6 +229,13 @@ var L3_Animation;
         crc2.lineTo(_x + 100, _y);
         crc2.closePath();
         crc2.stroke();
+        crc2.fill();
+    }
+    function drawSnowflakes(_x_snow, _y, _fillColor, _r) {
+        crc2.beginPath();
+        crc2.fillStyle = _fillColor;
+        crc2.arc(_x_snow, _y, _r, 0, Math.PI * 2);
+        crc2.closePath();
         crc2.fill();
     }
 })(L3_Animation || (L3_Animation = {}));
