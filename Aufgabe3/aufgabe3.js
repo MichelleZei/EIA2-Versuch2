@@ -13,6 +13,8 @@ var L3_Animation;
     let imgData;
     let x = [];
     let y = [];
+    let x_ski = [];
+    let y_ski = [];
     let r = Math.random() * 10;
     function init(_event) {
         let canvas;
@@ -27,6 +29,7 @@ var L3_Animation;
         drawLift2(200, 300, "#1F1F1F");
         drawLift3(2, 200, "#1F1F1F");
         drawBaum(600, 500, "#556B2F");
+        //drawSkifahrer(155, 0, "000000");
         for (var i = 0; i < 5; i++) {
             let x = 600 + Math.random() * 180;
             let y = 300 + Math.random() * 270;
@@ -42,6 +45,10 @@ var L3_Animation;
             x[i] = Math.random() * 800;
             y[i] = Math.random() * 600;
         }
+        for (var i = 0; i < 10; i++) {
+            x_ski[i] = 155 + Math.random() * 70;
+            y_ski[i] = Math.random() * 100;
+        }
         window.setTimeout(animate, 20);
     }
     function animate() {
@@ -56,6 +63,18 @@ var L3_Animation;
                 x[i] = 0;
             }
             drawSnowflakes(x[i], y[i], "#F8F8FF", r);
+        }
+        for (var i = 0; i < 5; i++) {
+            x_ski[i] += Math.random() * 3;
+            y_ski[i] += Math.random() * 5;
+            if (y_ski[i] > 600) {
+                y_ski[i] = 0;
+            }
+            if (x_ski[i] > 500) {
+                x_ski[i] = 150 + Math.random() * 70;
+                y_ski[i] = 0;
+            }
+            drawSkifahrer(x_ski[i], y_ski[i], "#000000");
         }
         window.setTimeout(animate, 20);
     }
@@ -237,6 +256,62 @@ var L3_Animation;
         crc2.arc(_x_snow, _y, _r, 0, Math.PI * 2);
         crc2.closePath();
         crc2.fill();
+    }
+    function drawSkifahrer(_x, _y, _strokeColor) {
+        //Kopf
+        crc2.beginPath();
+        crc2.fillStyle = _strokeColor;
+        crc2.strokeStyle = _strokeColor;
+        crc2.arc(_x, _y, 5, 0, Math.PI * 2);
+        crc2.closePath();
+        crc2.fill();
+        crc2.stroke();
+        //K�rper
+        crc2.beginPath();
+        crc2.strokeStyle = _strokeColor;
+        crc2.moveTo(_x, _y);
+        crc2.lineTo(_x, _y + 25);
+        crc2.closePath();
+        crc2.stroke();
+        //Arme
+        crc2.beginPath();
+        crc2.strokeStyle = _strokeColor;
+        crc2.moveTo(_x, _y + 15);
+        crc2.lineTo(_x + 10, _y + 10);
+        crc2.closePath();
+        crc2.stroke();
+        crc2.beginPath();
+        crc2.strokeStyle = _strokeColor;
+        crc2.moveTo(_x, _y + 15);
+        crc2.lineTo(_x - 10, _y + 10);
+        crc2.closePath();
+        crc2.stroke();
+        //Beine
+        crc2.beginPath();
+        crc2.strokeStyle = _strokeColor;
+        crc2.moveTo(_x, _y + 25);
+        crc2.lineTo(_x - 10, _y + 35);
+        crc2.closePath();
+        crc2.stroke();
+        crc2.beginPath();
+        crc2.strokeStyle = _strokeColor;
+        crc2.moveTo(_x, _y + 25);
+        crc2.lineTo(_x + 10, _y + 35);
+        crc2.closePath();
+        crc2.stroke();
+        //Ski
+        crc2.beginPath();
+        crc2.strokeStyle = _strokeColor;
+        crc2.moveTo(_x - 20, _y + 20);
+        crc2.lineTo(_x, _y + 50);
+        crc2.closePath();
+        crc2.stroke();
+        crc2.beginPath();
+        crc2.strokeStyle = _strokeColor;
+        crc2.moveTo(_x + 5, _y + 20);
+        crc2.lineTo(_x + 15, _y + 50);
+        crc2.closePath();
+        crc2.stroke();
     }
 })(L3_Animation || (L3_Animation = {}));
 //# sourceMappingURL=aufgabe3.js.map
